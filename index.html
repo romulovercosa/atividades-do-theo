@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atividades do Théo – Colégio Estação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== VARIÁVEIS ===== */
+    :root {
+      --green:       #3dbf72;
+      --green-light: #e6f9ee;
+      --green-dark:  #28a35a;
+      --blue:        #4a90d9;
+      --blue-light:  #e8f2fc;
+      --red:         #e05252;
+      --red-light:   #fdeaea;
+      --yellow:      #f5a623;
+      --yellow-light:#fff4e0;
+      --bg:          #f4f7f2;
+      --card:        #ffffff;
+      --text:        #2d3a2e;
+      --text-light:  #7a8a7b;
+      --border:      #d8e8d9;
+      --shadow:      0 4px 18px rgba(0,0,0,0.08);
+      --radius:      16px;
+      --radius-sm:   10px;
+      --font-title:  'Fredoka One', cursive;
+      --font-body:   'Nunito', sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== TELAS ===== */
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      background: var(--card);
+      border-bottom: 3px solid var(--green);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(61,191,114,0.12);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo-circle {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-title);
+      color: #fff; font-size: 16px; letter-spacing: 0.5px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(61,191,114,0.35);
+    }
+    .logo-img { width: 48px; height: 48px; border-radius: 50%; object-fit: contain; }
+    .header-text h1 {
+      font-family: var(--font-title);
+      font-size: 20px; color: var(--green-dark); line-height: 1.1;
+    }
+    .header-text p { font-size: 12px; color: var(--text-light); font-weight: 600; }
+    .back-btn {
+      margin-left: auto;
+      background: var(--green-light);
+      border: none; border-radius: var(--radius-sm);
+      color: var(--green-dark); font-family: var(--font-body);
+      font-weight: 700; font-size: 14px;
+      padding: 8px 16px; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .back-btn:hover { background: var(--green); color: #fff; transform: scale(1.04); }
+
+    /* ===== TELA DE LOGIN ===== */
+    #screen-login {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #e6f9ee 0%, #e8f2fc 60%, #fff4e0 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #screen-login.active { display: flex; }
+    .login-box {
+      background: var(--card);
+      border-radius: 28px;
+      box-shadow: 0 12px 48px rgba(61,191,114,0.18);
+      padding: 48px 36px;
+      text-align: center;
+      max-width: 380px; width: 90%;
+      position: relative; overflow: hidden;
+    }
+    .login-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--yellow), var(--red));
+    }
+    .login-logo {
+      width: 88px; height: 88px;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border-radius: 50%; margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-title); color: #fff; font-size: 26px;
+      box-shadow: 0 6px 24px rgba(61,191,114,0.35);
+    }
+    .login-title {
+      font-family: var(--font-title);
+      font-size: 30px; color: var(--green-dark); margin-bottom: 4px;
+    }
+    .login-subtitle {
+      font-size: 14px; color: var(--text-light);
+      font-weight: 600; margin-bottom: 32px;
+    }
+    .btn-enter {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff; border: none; border-radius: var(--radius);
+      font-family: var(--font-title); font-size: 22px;
+      cursor: pointer; letter-spacing: 0.5px;
+      box-shadow: 0 6px 20px rgba(61,191,114,0.38);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-enter:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(61,191,114,0.45); }
+    .btn-enter:active { transform: translateY(0); }
+    .login-deco {
+      margin-top: 28px; display: flex; justify-content: center; gap: 10px;
+    }
+    .login-deco span {
+      width: 10px; height: 10px; border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* ===== TELA PRINCIPAL ===== */
+    #screen-home { padding-bottom: 40px; }
+    .home-content {
+      max-width: 500px; margin: 0 auto;
+      padding: 36px 20px;
+      text-align: center;
+    }
+    .home-greeting {
+      font-family: var(--font-title);
+      font-size: 26px; color: var(--green-dark); margin-bottom: 6px;
+    }
+    .home-sub { color: var(--text-light); font-size: 14px; margin-bottom: 36px; font-weight: 600; }
+    .home-btns { display: flex; flex-direction: column; gap: 18px; }
+    .home-btn {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--card); border: none; border-radius: var(--radius);
+      padding: 22px 26px; cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      text-align: left;
+    }
+    .home-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
+    .home-btn-icon {
+      width: 56px; height: 56px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0;
+    }
+    .home-btn-text strong {
+      display: block; font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 2px;
+    }
+    .home-btn-text span { font-size: 13px; color: var(--text-light); font-weight: 600; }
+    .btn-ver .home-btn-icon { background: var(--blue-light); }
+    .btn-cad .home-btn-icon { background: var(--green-light); }
+
+    /* ===== FORMULÁRIO ===== */
+    #screen-form { padding-bottom: 40px; }
+    .form-wrap {
+      max-width: 520px; margin: 0 auto;
+      padding: 28px 20px;
+    }
+    .form-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+    }
+    .form-title {
+      font-family: var(--font-title);
+      font-size: 22px; color: var(--green-dark);
+      margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-weight: 700; font-size: 13px;
+      color: var(--text-light); text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 7px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 15px; color: var(--text);
+      background: #fafcfa;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(61,191,114,0.15);
+      background: #fff;
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .btn-save {
+      flex: 1; padding: 15px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff; border: none; border-radius: var(--radius-sm);
+      font-family: var(--font-title); font-size: 18px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(61,191,114,0.32);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-save:hover { transform: translateY(-2px); box-shadow: 0 7px 22px rgba(61,191,114,0.4); }
+    .btn-cancel {
+      padding: 15px 20px;
+      background: #f0f0f0; color: var(--text);
+      border: none; border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-weight: 700; font-size: 15px;
+      cursor: pointer; transition: background .2s;
+    }
+    .btn-cancel:hover { background: #e0e0e0; }
+    .msg-success {
+      background: var(--green-light); color: var(--green-dark);
+      border: 2px solid var(--green); border-radius: var(--radius-sm);
+      padding: 12px 16px; font-weight: 700; font-size: 14px;
+      margin-bottom: 18px; display: none; animation: fadeIn .3s ease;
+    }
+    .msg-error {
+      background: var(--red-light); color: var(--red);
+      border: 2px solid var(--red); border-radius: var(--radius-sm);
+      padding: 12px 16px; font-weight: 700; font-size: 14px;
+      margin-bottom: 18px; display: none; animation: fadeIn .3s ease;
+    }
+
+    /* ===== TELA VER ATIVIDADES ===== */
+    #screen-view { padding-bottom: 60px; }
+    .view-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+
+    /* Dashboard */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px; margin-bottom: 28px;
+    }
+    .dash-card {
+      background: var(--card);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .dash-num {
+      font-family: var(--font-title);
+      font-size: 30px; line-height: 1;
+      margin-bottom: 4px;
+    }
+    .dash-label { font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; }
+    .dash-total .dash-num { color: var(--text); }
+    .dash-pendente .dash-num { color: var(--blue); }
+    .dash-amanha .dash-num { color: var(--yellow); }
+    .dash-atrasada .dash-num { color: var(--red); }
+    .dash-concluida .dash-num { color: var(--green); }
+    .dash-total { border-top: 4px solid var(--text); }
+    .dash-pendente { border-top: 4px solid var(--blue); }
+    .dash-amanha { border-top: 4px solid var(--yellow); }
+    .dash-atrasada { border-top: 4px solid var(--red); }
+    .dash-concluida { border-top: 4px solid var(--green); }
+
+    /* Filtros */
+    .filters-section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 20px;
+      margin-bottom: 22px;
+    }
+    .filters-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+    .filter-group { flex: 1; min-width: 140px; }
+    .filter-group label {
+      display: block; font-weight: 700; font-size: 11px;
+      color: var(--text-light); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .filter-group select,
+    .filter-group input {
+      width: 100%; padding: 10px 12px;
+      border: 2px solid var(--border); border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-size: 14px; color: var(--text);
+      background: #fafcfa; outline: none;
+      transition: border-color .2s;
+    }
+    .filter-group select:focus,
+    .filter-group input:focus { border-color: var(--green); }
+
+    /* Meses */
+    .months-row {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    }
+    .month-btn {
+      padding: 7px 14px;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      font-family: var(--font-body); font-weight: 700; font-size: 12px;
+      color: var(--text-light); cursor: pointer;
+      transition: all .18s;
+    }
+    .month-btn.active, .month-btn:hover {
+      background: var(--green); color: #fff; border-color: var(--green);
+    }
+    .month-btn.all-months { border-color: var(--green-dark); color: var(--green-dark); }
+    .month-btn.all-months.active { background: var(--green-dark); color: #fff; }
+
+    /* ===== STATUS BADGES ===== */
+    .badge {
+      display: inline-block; padding: 4px 10px;
+      border-radius: 20px; font-size: 11px; font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-concluida { background: var(--green-light); color: var(--green-dark); border: 1.5px solid var(--green); }
+    .badge-atrasada  { background: var(--red-light);   color: var(--red);        border: 1.5px solid var(--red); }
+    .badge-amanha    { background: var(--yellow-light); color: #b87000;           border: 1.5px solid var(--yellow); }
+    .badge-pendente  { background: var(--blue-light);  color: var(--blue);       border: 1.5px solid var(--blue); }
+
+    /* ===== TABELA (desktop) ===== */
+    .table-view { display: block; }
+    .table-scroll { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .activities-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--card);
+      font-size: 13px;
+    }
+    .activities-table thead th {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: #fff; font-family: var(--font-title); font-size: 14px;
+      padding: 14px 12px; text-align: left;
+      white-space: nowrap; letter-spacing: 0.3px;
+    }
+    .activities-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+    .activities-table thead th:last-child  { border-radius: 0 var(--radius) 0 0; }
+    .activities-table tbody tr {
+      border-bottom: 1.5px solid var(--border);
+      transition: background .15s;
+    }
+    .activities-table tbody tr:hover { background: #f7fbf7; }
+    .activities-table tbody td { padding: 12px 12px; vertical-align: middle; }
+    .activities-table .materia-tag {
+      font-weight: 800; font-size: 12px;
+      background: var(--green-light); color: var(--green-dark);
+      padding: 3px 8px; border-radius: 8px; display: inline-block;
+    }
+    .table-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+    .tbl-btn {
+      padding: 5px 10px; border: none; border-radius: 8px;
+      font-family: var(--font-body); font-weight: 700; font-size: 11px;
+      cursor: pointer; transition: opacity .15s, transform .1s;
+    }
+    .tbl-btn:hover { opacity: .82; transform: scale(1.05); }
+    .tbl-btn-concluir { background: var(--green-light); color: var(--green-dark); }
+    .tbl-btn-pendente  { background: var(--blue-light);  color: var(--blue); }
+    .tbl-btn-editar    { background: var(--yellow-light); color: #a06000; }
+    .tbl-btn-excluir   { background: var(--red-light);   color: var(--red); }
+    .tr-concluida { opacity: 0.7; }
+
+    /* ===== CARDS (mobile) ===== */
+    .cards-view { display: none; }
+    .activity-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px; margin-bottom: 14px;
+      border-left: 5px solid var(--border);
+      animation: fadeIn .3s ease;
+    }
+    .card-concluida { border-left-color: var(--green); opacity: 0.78; }
+    .card-atrasada  { border-left-color: var(--red); }
+    .card-amanha    { border-left-color: var(--yellow); }
+    .card-pendente  { border-left-color: var(--blue); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .card-materia {
+      font-family: var(--font-title); font-size: 17px; color: var(--green-dark);
+    }
+    .card-info { font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
+    .card-info strong { color: var(--text); }
+    .card-obs { font-size: 13px; color: var(--text-light); font-style: italic; margin-bottom: 12px; }
+    .card-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .card-btn {
+      flex: 1; min-width: 80px; padding: 10px 8px;
+      border: none; border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-weight: 700; font-size: 13px;
+      cursor: pointer; text-align: center;
+      transition: transform .15s, opacity .15s;
+    }
+    .card-btn:active { transform: scale(0.96); }
+    .card-btn-concluir { background: var(--green-light); color: var(--green-dark); }
+    .card-btn-pendente  { background: var(--blue-light);  color: var(--blue); }
+    .card-btn-editar    { background: var(--yellow-light); color: #a06000; }
+    .card-btn-excluir   { background: var(--red-light);   color: var(--red); }
+
+    /* Vazio */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: var(--text-light);
+    }
+    .empty-state .empty-icon { font-size: 60px; margin-bottom: 14px; }
+    .empty-state p { font-size: 16px; font-weight: 600; }
+
+    /* Modal de confirmação */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--card); border-radius: var(--radius);
+      padding: 32px 28px; max-width: 340px; width: 90%;
+      text-align: center; box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+      animation: fadeIn .25s ease;
+    }
+    .modal-icon { font-size: 44px; margin-bottom: 12px; }
+    .modal-title { font-family: var(--font-title); font-size: 20px; color: var(--text); margin-bottom: 8px; }
+    .modal-text { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+    .modal-btns { display: flex; gap: 12px; }
+    .modal-btn-cancel {
+      flex: 1; padding: 13px; border: 2px solid var(--border);
+      border-radius: var(--radius-sm); background: #fff;
+      font-family: var(--font-body); font-weight: 700; font-size: 15px;
+      cursor: pointer;
+    }
+    .modal-btn-confirm {
+      flex: 1; padding: 13px; border: none;
+      border-radius: var(--radius-sm); background: var(--red);
+      color: #fff; font-family: var(--font-body); font-weight: 700;
+      font-size: 15px; cursor: pointer;
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 700px) {
+      .dashboard { grid-template-columns: repeat(3, 1fr); }
+      .dashboard .dash-amanha,
+      .dashboard .dash-concluida { display: none; }
+      .table-view { display: none !important; }
+      .cards-view { display: block !important; }
+      .view-wrap { padding: 16px 14px; }
+      .header-text h1 { font-size: 17px; }
+    }
+    @media (max-width: 460px) {
+      .dashboard { grid-template-columns: repeat(2, 1fr); }
+      .dashboard .dash-total,
+      .dashboard .dash-atrasada { display: flex; }
+    }
+    @media (min-width: 701px) {
+      .table-view { display: block; }
+      .cards-view { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== TELA DE LOGIN ==================== -->
+  <div id="screen-login" class="screen active">
+    <div class="login-box">
+      <div class="login-logo" id="loginLogo">CE</div>
+      <div class="login-title">Atividades do Théo</div>
+      <div class="login-subtitle">📚 Colégio Estação</div>
+      <button class="btn-enter" onclick="entrar()">Entrar</button>
+      <div class="login-deco">
+        <span style="background:var(--green)"></span>
+        <span style="background:var(--blue)"></span>
+        <span style="background:var(--yellow)"></span>
+        <span style="background:var(--red)"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TELA PRINCIPAL ==================== -->
+  <div id="screen-home" class="screen">
+    <header class="app-header">
+      <div class="logo-circle" id="headerLogo">CE</div>
+      <div class="header-text">
+        <h1>Atividades do Théo</h1>
+        <p>📚 Colégio Estação</p>
+      </div>
+    </header>
+    <div class="home-content">
+      <div class="home-greeting">Olá, Théo! 👋</div>
+      <div class="home-sub">O que vamos fazer hoje?</div>
+      <div class="home-btns">
+        <button class="home-btn btn-ver" onclick="irPara('screen-view'); renderView();">
+          <div class="home-btn-icon">📋</div>
+          <div class="home-btn-text">
+            <strong>Ver Atividades</strong>
+            <span>Acompanhe e gerencie suas tarefas</span>
+          </div>
+        </button>
+        <button class="home-btn btn-cad" onclick="abrirFormNovo()">
+          <div class="home-btn-icon">✏️</div>
+          <div class="home-btn-text">
+            <strong>Cadastrar Atividade</strong>
+            <span>Adicione uma nova tarefa escolar</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TELA FORMULÁRIO ==================== -->
+  <div id="screen-form" class="screen">
+    <header class="app-header">
+      <div class="logo-circle">CE</div>
+      <div class="header-text">
+        <h1>Atividades do Théo</h1>
+        <p>📚 Colégio Estação</p>
+      </div>
+      <button class="back-btn" onclick="irPara('screen-home')">← Voltar</button>
+    </header>
+    <div class="form-wrap">
+      <div class="form-card">
+        <div class="form-title" id="formTitle">✏️ Cadastrar Atividade</div>
+        <div class="msg-success" id="msgSuccess">✅ Atividade salva com sucesso!</div>
+        <div class="msg-error"   id="msgError">⚠️ Preencha todos os campos obrigatórios.</div>
+
+        <input type="hidden" id="editId" value="" />
+
+        <div class="form-group">
+          <label>Matéria *</label>
+          <select id="fMateria">
+            <option value="">— Selecione a matéria —</option>
+            <option>Artes</option>
+            <option>Ciências</option>
+            <option>Ed. Física</option>
+            <option>Geografia</option>
+            <option>História</option>
+            <option>Matemática</option>
+            <option>Português</option>
+            <option>P. Textual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Página(s) *</label>
+          <input type="text" id="fPaginas" placeholder="Ex: 45, 46-47" />
+        </div>
+
+        <div class="form-group">
+          <label>Data de Entrega *</label>
+          <input type="date" id="fData" />
+        </div>
+
+        <div class="form-group">
+          <label>Observação</label>
+          <textarea id="fObs" placeholder="Alguma observação adicional..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-save" onclick="salvarAtividade()">💾 Salvar Atividade</button>
+          <button class="btn-cancel" onclick="irPara('screen-home')">Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TELA VER ATIVIDADES ==================== -->
+  <div id="screen-view" class="screen">
+    <header class="app-header">
+      <div class="logo-circle">CE</div>
+      <div class="header-text">
+        <h1>Atividades do Théo</h1>
+        <p>📚 Colégio Estação</p>
+      </div>
+      <button class="back-btn" onclick="irPara('screen-home')">← Voltar</button>
+    </header>
+    <div class="view-wrap">
+
+      <!-- Dashboard -->
+      <div class="dashboard">
+        <div class="dash-card dash-total">
+          <div class="dash-num" id="dTotal">0</div>
+          <div class="dash-label">Total</div>
+        </div>
+        <div class="dash-card dash-pendente">
+          <div class="dash-num" id="dPendente">0</div>
+          <div class="dash-label">Pendentes</div>
+        </div>
+        <div class="dash-card dash-amanha">
+          <div class="dash-num" id="dAmanha">0</div>
+          <div class="dash-label">Amanhã</div>
+        </div>
+        <div class="dash-card dash-atrasada">
+          <div class="dash-num" id="dAtrasada">0</div>
+          <div class="dash-label">Atrasadas</div>
+        </div>
+        <div class="dash-card dash-concluida">
+          <div class="dash-num" id="dConcluida">0</div>
+          <div class="dash-label">Concluídas</div>
+        </div>
+      </div>
+
+      <!-- Filtro por mês -->
+      <div class="months-row" id="monthsRow"></div>
+
+      <!-- Filtros -->
+      <div class="filters-section">
+        <div class="filters-row">
+          <div class="filter-group">
+            <label>Matéria</label>
+            <select id="filtroMateria" onchange="renderView()">
+              <option value="">Todas</option>
+              <option>Artes</option>
+              <option>Ciências</option>
+              <option>Ed. Física</option>
+              <option>Geografia</option>
+              <option>História</option>
+              <option>Matemática</option>
+              <option>Português</option>
+              <option>P. Textual</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select id="filtroStatus" onchange="renderView()">
+              <option value="">Todos</option>
+              <option value="pendente">Pendente</option>
+              <option value="amanha">Entrega Amanhã</option>
+              <option value="atrasada">Atrasada</option>
+              <option value="concluida">Concluída</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" id="filtroBusca" placeholder="Matéria, páginas..." oninput="renderView()" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista Tabela (desktop) -->
+      <div class="table-view" id="tableView">
+        <div class="table-scroll">
+          <table class="activities-table">
+            <thead>
+              <tr>
+                <th>Matéria</th>
+                <th>Página(s)</th>
+                <th>Entrega</th>
+                <th>Observação</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="tableEmpty" style="display:none">
+          <div class="empty-icon">📭</div>
+          <p>Nenhuma atividade encontrada.</p>
+        </div>
+      </div>
+
+      <!-- Lista Cards (mobile) -->
+      <div class="cards-view" id="cardsView">
+        <div id="cardsContainer"></div>
+        <div class="empty-state" id="cardsEmpty" style="display:none">
+          <div class="empty-icon">📭</div>
+          <p>Nenhuma atividade encontrada.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL EXCLUSÃO ==================== -->
+  <div class="modal-overlay" id="modalExcluir">
+    <div class="modal-box">
+      <div class="modal-icon">🗑️</div>
+      <div class="modal-title">Excluir atividade?</div>
+      <div class="modal-text">Esta ação não pode ser desfeita.</div>
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="confirmarExclusao()">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   ATIVIDADES DO THÉO – Lógica principal
+   Dados salvos no localStorage.
+   Estrutura preparada para migração ao Supabase.
+   ========================================================= */
+
+// ─── Constantes ───────────────────────────────────────────
+const STORAGE_KEY = 'theo_atividades';
+const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+// Estado da aplicação
+let atividadeParaExcluir = null;
+let mesFiltroAtivo = null; // null = todos os meses
+
+// ─── Utilitários ──────────────────────────────────────────
+
+/** Lê atividades do localStorage */
+function lerAtividades() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch { return []; }
+}
+
+/** Salva lista de atividades no localStorage */
+function salvarStorage(lista) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+}
+
+/** Gera ID único */
+function gerarId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+/** Formata data YYYY-MM-DD → DD/MM/YYYY */
+function formatarData(str) {
+  if (!str) return '—';
+  const [y, m, d] = str.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+/** Data de hoje (sem hora) */
+function hoje() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+/** Converte string YYYY-MM-DD para objeto Date (sem hora) */
+function parseData(str) {
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+// ─── Cálculo de status ────────────────────────────────────
+
+/**
+ * Calcula o status automático de uma atividade.
+ * @returns {'concluida'|'atrasada'|'amanha'|'pendente'}
+ */
+function calcularStatus(ativ) {
+  if (ativ.concluida) return 'concluida';
+  const entrega = parseData(ativ.data);
+  const hj = hoje();
+  const diff = Math.round((entrega - hj) / 86400000); // dias
+  if (diff < 0) return 'atrasada';
+  if (diff === 1) return 'amanha';
+  return 'pendente';
+}
+
+/** Rótulo legível do status */
+function rotuloStatus(s) {
+  return { concluida: 'Concluída', atrasada: 'Atrasada', amanha: 'Entrega amanhã', pendente: 'Pendente' }[s];
+}
+
+/** Ordem de exibição por status (menor = primeiro) */
+function ordemStatus(s) {
+  return { atrasada: 0, amanha: 1, pendente: 2, concluida: 3 }[s];
+}
+
+// ─── Navegação ────────────────────────────────────────────
+
+/** Mostra apenas a tela com o id fornecido */
+function irPara(id) {
+  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/** Ação do botão "Entrar" */
+function entrar() {
+  irPara('screen-home');
+}
+
+// ─── Formulário ───────────────────────────────────────────
+
+/** Abre formulário limpo para nova atividade */
+function abrirFormNovo() {
+  document.getElementById('editId').value = '';
+  document.getElementById('formTitle').textContent = '✏️ Cadastrar Atividade';
+  document.getElementById('fMateria').value = '';
+  document.getElementById('fPaginas').value = '';
+  document.getElementById('fData').value = '';
+  document.getElementById('fObs').value = '';
+  esconderMensagens();
+  irPara('screen-form');
+}
+
+/** Abre formulário preenchido para edição */
+function editarAtividade(id) {
+  const lista = lerAtividades();
+  const ativ = lista.find(a => a.id === id);
+  if (!ativ) return;
+
+  document.getElementById('editId').value = id;
+  document.getElementById('formTitle').textContent = '✏️ Editar Atividade';
+  document.getElementById('fMateria').value = ativ.materia;
+  document.getElementById('fPaginas').value = ativ.paginas;
+  document.getElementById('fData').value = ativ.data;
+  document.getElementById('fObs').value = ativ.obs || '';
+  esconderMensagens();
+  irPara('screen-form');
+}
+
+/** Esconde mensagens de feedback */
+function esconderMensagens() {
+  document.getElementById('msgSuccess').style.display = 'none';
+  document.getElementById('msgError').style.display = 'none';
+}
+
+/** Valida e salva (ou atualiza) atividade */
+function salvarAtividade() {
+  const materia = document.getElementById('fMateria').value.trim();
+  const paginas = document.getElementById('fPaginas').value.trim();
+  const data    = document.getElementById('fData').value;
+  const obs     = document.getElementById('fObs').value.trim();
+  const editId  = document.getElementById('editId').value;
+
+  // Validação
+  if (!materia || !paginas || !data) {
+    mostrarErro('⚠️ Preencha Matéria, Página(s) e Data de Entrega.');
+    return;
+  }
+
+  const lista = lerAtividades();
+
+  if (editId) {
+    // Modo edição
+    const idx = lista.findIndex(a => a.id === editId);
+    if (idx > -1) {
+      lista[idx] = { ...lista[idx], materia, paginas, data, obs };
+    }
+    salvarStorage(lista);
+    mostrarSucesso('✅ Atividade atualizada!');
+  } else {
+    // Nova atividade
+    const nova = { id: gerarId(), materia, paginas, data, obs, concluida: false };
+    lista.push(nova);
+    salvarStorage(lista);
+    mostrarSucesso('✅ Atividade salva com sucesso!');
+    // Limpa formulário
+    document.getElementById('fMateria').value = '';
+    document.getElementById('fPaginas').value = '';
+    document.getElementById('fData').value = '';
+    document.getElementById('fObs').value = '';
+  }
+}
+
+function mostrarSucesso(txt) {
+  const el = document.getElementById('msgSuccess');
+  el.textContent = txt;
+  el.style.display = 'block';
+  document.getElementById('msgError').style.display = 'none';
+  setTimeout(() => el.style.display = 'none', 3500);
+}
+
+function mostrarErro(txt) {
+  const el = document.getElementById('msgError');
+  el.textContent = txt;
+  el.style.display = 'block';
+  document.getElementById('msgSuccess').style.display = 'none';
+}
+
+// ─── Status: Concluir / Pendente ──────────────────────────
+
+/** Marca como concluída */
+function concluirAtividade(id) {
+  const lista = lerAtividades();
+  const idx = lista.findIndex(a => a.id === id);
+  if (idx > -1) { lista[idx].concluida = true; salvarStorage(lista); renderView(); }
+}
+
+/** Marca como pendente (desfaz conclusão) */
+function pendenteAtividade(id) {
+  const lista = lerAtividades();
+  const idx = lista.findIndex(a => a.id === id);
+  if (idx > -1) { lista[idx].concluida = false; salvarStorage(lista); renderView(); }
+}
+
+// ─── Exclusão ─────────────────────────────────────────────
+
+function excluirAtividade(id) {
+  atividadeParaExcluir = id;
+  document.getElementById('modalExcluir').classList.add('open');
+}
+
+function fecharModal() {
+  atividadeParaExcluir = null;
+  document.getElementById('modalExcluir').classList.remove('open');
+}
+
+function confirmarExclusao() {
+  if (!atividadeParaExcluir) return;
+  const lista = lerAtividades().filter(a => a.id !== atividadeParaExcluir);
+  salvarStorage(lista);
+  fecharModal();
+  renderView();
+}
+
+// ─── Meses ────────────────────────────────────────────────
+
+function renderMeses() {
+  const row = document.getElementById('monthsRow');
+  row.innerHTML = '';
+
+  // Botão "Todos"
+  const todos = document.createElement('button');
+  todos.className = 'month-btn all-months' + (mesFiltroAtivo === null ? ' active' : '');
+  todos.textContent = 'Todos';
+  todos.onclick = () => { mesFiltroAtivo = null; renderView(); };
+  row.appendChild(todos);
+
+  MESES.forEach((mes, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'month-btn' + (mesFiltroAtivo === i ? ' active' : '');
+    btn.textContent = mes;
+    btn.onclick = () => { mesFiltroAtivo = i; renderView(); };
+    row.appendChild(btn);
+  });
+}
+
+// ─── Dashboard ────────────────────────────────────────────
+
+function atualizarDashboard(lista) {
+  const stats = { concluida: 0, atrasada: 0, amanha: 0, pendente: 0 };
+  lista.forEach(a => { const s = calcularStatus(a); stats[s]++; });
+  document.getElementById('dTotal').textContent    = lista.length;
+  document.getElementById('dPendente').textContent = stats.pendente;
+  document.getElementById('dAmanha').textContent   = stats.amanha;
+  document.getElementById('dAtrasada').textContent = stats.atrasada;
+  document.getElementById('dConcluida').textContent= stats.concluida;
+}
+
+// ─── Filtragem ────────────────────────────────────────────
+
+function filtrarAtividades() {
+  let lista = lerAtividades();
+
+  // Filtro mês
+  if (mesFiltroAtivo !== null) {
+    lista = lista.filter(a => {
+      if (!a.data) return false;
+      return parseData(a.data).getMonth() === mesFiltroAtivo;
+    });
+  }
+
+  // Filtro matéria
+  const mat = document.getElementById('filtroMateria')?.value || '';
+  if (mat) lista = lista.filter(a => a.materia === mat);
+
+  // Filtro status
+  const st = document.getElementById('filtroStatus')?.value || '';
+  if (st) lista = lista.filter(a => calcularStatus(a) === st);
+
+  // Busca livre
+  const busca = (document.getElementById('filtroBusca')?.value || '').toLowerCase();
+  if (busca) lista = lista.filter(a =>
+    a.materia.toLowerCase().includes(busca) ||
+    a.paginas.toLowerCase().includes(busca) ||
+    (a.obs || '').toLowerCase().includes(busca)
+  );
+
+  // Ordenação
+  lista.sort((a, b) => ordemStatus(calcularStatus(a)) - ordemStatus(calcularStatus(b)));
+
+  return lista;
+}
+
+// ─── Renderização ─────────────────────────────────────────
+
+/** Renderiza toda a tela "Ver Atividades" */
+function renderView() {
+  renderMeses();
+  const lista = filtrarAtividades();
+  atualizarDashboard(lerAtividades()); // dashboard usa todas (sem filtro de mês/matéria)
+  renderTabela(lista);
+  renderCards(lista);
+}
+
+/** Renderiza tabela para desktop */
+function renderTabela(lista) {
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('tableEmpty');
+  tbody.innerHTML = '';
+
+  if (lista.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  lista.forEach(ativ => {
+    const st = calcularStatus(ativ);
+    const tr = document.createElement('tr');
+    if (st === 'concluida') tr.classList.add('tr-concluida');
+
+    tr.innerHTML = `
+      <td><span class="materia-tag">${esc(ativ.materia)}</span></td>
+      <td>${esc(ativ.paginas)}</td>
+      <td><strong>${formatarData(ativ.data)}</strong></td>
+      <td style="max-width:200px;color:var(--text-light);font-size:12px">${esc(ativ.obs || '—')}</td>
+      <td><span class="badge badge-${st}">${rotuloStatus(st)}</span></td>
+      <td>
+        <div class="table-btns">
+          ${st !== 'concluida'
+            ? `<button class="tbl-btn tbl-btn-concluir" onclick="concluirAtividade('${ativ.id}')">✔ Concluir</button>`
+            : `<button class="tbl-btn tbl-btn-pendente" onclick="pendenteAtividade('${ativ.id}')">↩ Pendente</button>`}
+          <button class="tbl-btn tbl-btn-editar"  onclick="editarAtividade('${ativ.id}')">✏️ Editar</button>
+          <button class="tbl-btn tbl-btn-excluir" onclick="excluirAtividade('${ativ.id}')">🗑️ Excluir</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/** Renderiza cards para mobile */
+function renderCards(lista) {
+  const container = document.getElementById('cardsContainer');
+  const empty     = document.getElementById('cardsEmpty');
+  container.innerHTML = '';
+
+  if (lista.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  lista.forEach(ativ => {
+    const st = calcularStatus(ativ);
+    const card = document.createElement('div');
+    card.className = `activity-card card-${st}`;
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-materia">${esc(ativ.materia)}</div>
+        <span class="badge badge-${st}">${rotuloStatus(st)}</span>
+      </div>
+      <div class="card-info">📄 <strong>Páginas:</strong> ${esc(ativ.paginas)}</div>
+      <div class="card-info">📅 <strong>Entrega:</strong> ${formatarData(ativ.data)}</div>
+      ${ativ.obs ? `<div class="card-obs">💬 ${esc(ativ.obs)}</div>` : ''}
+      <div class="card-btns">
+        ${st !== 'concluida'
+          ? `<button class="card-btn card-btn-concluir" onclick="concluirAtividade('${ativ.id}')">✔ Concluir</button>`
+          : `<button class="card-btn card-btn-pendente" onclick="pendenteAtividade('${ativ.id}')">↩ Pendente</button>`}
+        <button class="card-btn card-btn-editar"  onclick="editarAtividade('${ativ.id}')">✏️ Editar</button>
+        <button class="card-btn card-btn-excluir" onclick="excluirAtividade('${ativ.id}')">🗑 Excluir</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+/** Escapa HTML para evitar XSS */
+function esc(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ─── Inicialização ────────────────────────────────────────
+
+/** Chamado ao carregar a página */
+function init() {
+  // Nada especial para o login (sem autenticação)
+  // Pré-renderiza os meses
+  renderMeses();
+}
+
+init();
+
+/*
+  ─────────────────────────────────────────────────────────
+  PREPARAÇÃO PARA SUPABASE (futuro)
+  ─────────────────────────────────────────────────────────
+  Para migrar para Supabase, substitua as funções:
+    - lerAtividades()   → SELECT * FROM atividades WHERE user_id = X
+    - salvarStorage()   → INSERT / UPDATE na tabela 'atividades'
+    - filtrarAtividades → adicione WHERE clauses na query
+  Dica: mantenha os IDs, campos e estrutura idênticos.
+  ─────────────────────────────────────────────────────────
+*/
+</script>
+</body>
+</html>
